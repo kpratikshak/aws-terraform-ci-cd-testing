@@ -1,0 +1,39 @@
+# Define the IAM policy document using native HCL
+data "aws_iam_policy_document" "codebuild_policy_doc" {
+  # Permissions for S3 state bucket and DynamoDB lock table
+  statement {
+    sid       = "TerraformBackend"
+    effect    = "Allow"
+    actions   = ["s3:*"]
+    resources = [
+      aws_s3_bucket.tf_state.arn,
+      "${aws_s3_bucket.tf_state.arn}/*",
+    ]
+  }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["dynamodb:*"]
+    resources = [aws_dynamodb_table.tf_lock.arn]
+  }
+
+  # Permissions for CodeBuild to create CloudWatch logs
+  statement {
+    sid       = "CodeBuildLogging"
+    effect    = "Allow"
+    actions   = [
+      "logs:CreateLogGroup",
+      "logs:CreateLogStream",
+      "logs:PutLogEvents",
+    ]
+    resources = ["*"]
+  }
+
+  # Permissions for Terraform to manage infrastructure
+  statement {
+    sid       = "TerraformManageResources"
+    effect    = "Allow"
+    actions   = ["ec2:*", "iam:*", "s3:*"] # Customize as needed
+    resources = ["*"]
+  }
+}
