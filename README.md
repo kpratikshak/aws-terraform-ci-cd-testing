@@ -3,7 +3,7 @@
 This repository implements a robust CI/CD system to automate the testing and deployment of Terraform modules on AWS. 
 It addresses the challenges of manual deployments, which often lead to misconfigured infrastructure, security vulnerabilities, and unscalable cloud environments.
 
-# # Problem Statement:
+## Problem Statement:
 Manual Terraform deployments lack automated testing and validation, increasing the risk of human error. 
 This pipeline solves that problem by creating a repeatable and secure workflow that validates infrastructure changes before they are deployed.
 
@@ -35,7 +35,7 @@ For Pull Requests/Feature Branches: The build runs a terraform plan to show a dr
 
 For the main Branch: The build proceeds to run terraform apply to deploy the changes automatically.
 
-Key Features ✨
+## Key Features ✨
 Automated Testing: Leverages the native terraform test command to run integration and end-to-end tests against your modules.
 
 Security Scanning: Integrates checkov to scan for infrastructure-as-code misconfigurations and security issues.
@@ -46,7 +46,7 @@ Remote State Management: Uses an S3 bucket for secure, centralized state storage
 
 Infrastructure as Code (IaC): The entire CI/CD pipeline itself is defined as code using Terraform.
 
-Technologies Used
+## Technologies Used:
 Terraform: For defining both the end-user infrastructure and the pipeline itself.
 
 AWS CodePipeline: The orchestrator for the CI/CD workflow.
@@ -72,7 +72,7 @@ Directory Structure
 🚀 Getting Started: Setup and Deployment
 To deploy this CI/CD pipeline, you need to bootstrap it once from your local machine. After that, the pipeline will manage itself.
 
-Prerequisites
+## Prerequisites:
 An AWS Account
 Terraform CLI installed locally.
 AWS CLI configured with appropriate credentials.
