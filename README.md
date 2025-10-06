@@ -19,7 +19,7 @@ Trigger: The push event triggers AWS CodePipeline.
 
 Source: CodePipeline fetches the latest source code from GitHub.
 
-Build & Test: The pipeline starts an AWS CodeBuild project, which executes a series of commands defined in the buildspec.yml file. This includes:
+Build & Test: The pipeline starts an AWS CodeBuild project, which executes a series of commands defined in the buildspec.yml file. 
 
 Initializing Terraform.
 
@@ -86,8 +86,7 @@ In the backend.tf file, change the bucket name to a globally unique name for you
 # backend.tf
 terraform {
   backend "s3" {
-    bucket = "your-unique-terraform-state-bucket-name" # 
-    # ...
+    bucket = "your-unique-terraform-state-bucket-name" 
   }
 }
 
@@ -102,19 +101,17 @@ In the codepipeline.tf file, paste the ARN into the ConnectionArn configuration.
 
 # codepipeline.tf
 resource "aws_codepipeline" "pipeline" {
-  # ...
   stage {
     name = "Source"
     action {
       # ...
       configuration = {
-        ConnectionArn    = "arn:aws:codestar-connections:..." # <-- PASTE ARN HERE
-        FullRepositoryId = "YourUsername/YourRepoName"     # <-- UPDATE THIS
+        ConnectionArn    = "arn:aws:codestar-connections:..." 
+        FullRepositoryId = "YourUsername/YourRepoName"     
         BranchName       = "main"
       }
     }
   }
-  # ...
 } 
 
 ## Step 3: Deploy the Pipeline
