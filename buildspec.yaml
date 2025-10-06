@@ -1,0 +1,31 @@
+ buildspec.yml - Commands for AWS CodeBuild
+
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+    commands:
+      - echo "Installing security scanner Checkov..."
+      - pip3 install checkov
+
+  pre_build:
+    commands:
+      - echo "Initializing Terraform..."
+      # The -backend-config arguments are not needed if you have the backend.tf file
+      - terraform init
+
+  build:
+    commands:
+      - echo "Running standard Terraform checks..."
+      - terraform validate
+      - terraform fmt -check
+
+      - echo "Scanning for security misconfigurations with Checkov..."
+      # Fail the build if any critical issues are found
+      - checkov --directory . --framework terraform --quiet
+
+      - echo "Running Terraform integration and end-to-end tests..."
+      # This command executes all *.tftest.hcl files in the 'tests' directory
+      - terraform test
